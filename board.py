@@ -6,8 +6,14 @@ class Board:
     def __init__(self):
         self.board = [["-" for square in range(self.width)] for square in range(self.height)]
 
+    def set_board(self, board_ar):
+        self.board = board_ar
+
     def get_current_turn(self):
         return self.turn
+
+    def get_board_state(self):
+        return self.board
 
     def swap_turn(self):
         if self.turn == "X":

@@ -1,21 +1,13 @@
 from board import Board  # Import the class from the other file
 
 
-player_in = ""
-
-valid_commands = ["1","2","3","4","5","6","7","e","exit"]
-
-game_board = Board()
-
-
-#get commands
-def is_valid_input(_in):
-    return _in in valid_commands
 
 running_game = True
 
 while running_game:
     print("Starting new game...")
+    game_board = Board()
+
     #selecting your opponent
     playing_game = True
     while True:
