@@ -1,67 +1,84 @@
 from board import Board  # Import the class from the other file
-
-
+from human_player import Human_player
+from player import Player
+import random
 
 running_game = True
 
 while running_game:
     print("Starting new game...")
+    print()
     game_board = Board()
 
+    player = []
+    
     #selecting your opponent
     playing_game = True
-    while True:
+    while len(player) != 2:
 
         print("""Select Opponent:
     1. Human (same machine)
-    2. Easy AI
+    2. Randobot
     3. Normal AI
     4. Hard AI
-e/exit: stop playing""")
+e/exit: stop playing
+              """)
+       
         
-        
-        match (input("Enter Opponent: ").strip().lower()):
+        match (input("Select Player " + str(len(player) + 1) + ": ").strip().lower()):
             case "1": 
-                break
+                player.append(Human_player(game_board))
             case "2": 
-                break
+                player.append(Player(game_board))
             case "3": 
-                break
+                print("Not done yet")
             case "4": 
-                break
+                print("Not done yet")
             case "e": 
                 playing_game = False
                 break
             case "-":
                 continue
+
     
-        
-    
+    starting_turn = [0,1]
+    random.shuffle(starting_turn)
+    turn_order = dict(zip(['X', 'O'], starting_turn)) 
+    turn_index = turn_order[game_board.get_current_turn()]
     #Playing the game
     while playing_game:
         #playing game
         game_board.print_board()
-        
-        turn = game_board.get_current_turn()
 
-        player_in = input(turn+"'s turn\nEnter a move:").strip().lower()
+        #turn = game_board.get_current_turn()
 
-        if not is_valid_input(player_in):
-            print("Invalid input")
-            continue
+        desired_move = player[turn_index].get_move()
 
-        if player_in in ["e", "exit"]:
-            print("Exiting...")
+        if desired_move == "e":
             break
         
-        if game_board.is_move_valid(int(player_in) - 1):
-            game_board.play_move(int(player_in) - 1)
-            winner = game_board.check_game_win()
+        if type(desired_move) is int: 
+            if game_board.is_move_valid(desired_move):
 
-            if winner != None:
-                game_board.print_board()
-                print(winner + " Wins!")
-                break
+                game_board.play_move(desired_move)
+
+                turn_index = turn_order[game_board.get_current_turn()]
+
+                player[turn_index].update_board(game_board)
+                winner = game_board.check_game_win()
+
+
+
+                if winner == "draw":
+                    game_board.print_board()
+                    print("Tie!")
+                    break
+
+                if winner != None:
+                    game_board.print_board()
+                    print(winner + " Wins!")
+                    break
+
     
 
     #Game is over

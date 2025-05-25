@@ -27,11 +27,9 @@ class Board:
 
     def is_move_valid(self, collumn):
         if not self.is_square_valid(0,collumn):
-            print("Error: move is not valid")
             return False
         
         if self.board[0][collumn] != "-":
-            print("Row is full")
             return False
         
         return True      
@@ -85,3 +83,5 @@ class Board:
             for col in row:
                 print(col,end=" ")
             print()
+        
+        print()
