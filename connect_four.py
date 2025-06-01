@@ -9,6 +9,7 @@ from player import Player
 
 #os clearing
 def clear():
+    #clear the terminal based on os used
     os.system("cls" if os.name in ('nt', 'dos') else "clear")
 
 def refresh_gamestate(board):
@@ -18,6 +19,7 @@ def refresh_gamestate(board):
 
 def choose_players(board):
     player = []
+    #lambda for delaying object creation
     choices = {
         "1": lambda: Human_player(board),
         "2": lambda: Player(board)
@@ -33,7 +35,7 @@ def choose_players(board):
 e/exit: stop playing""")
         choice = input(f"Select Player {len(player) + 1}: ").strip().lower()
         if choice == "e":
-            return None
+            return False
         if choice in choices:
             player.append(choices[choice]())
         else:
@@ -41,7 +43,7 @@ e/exit: stop playing""")
     return player
 
 def play_game():
-    print("Starting new game...")
+    print("Starting new game... \n\n")
     game_board = Board()
     player = choose_players(game_board)
     if player == False:
@@ -85,3 +87,4 @@ def play_game():
     
 while play_game():
     continue
+
