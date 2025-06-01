@@ -1,7 +1,21 @@
 from board import Board  # Import the class from the other file
 from human_player import Human_player
 from player import Player
+
+
 import random
+import os
+
+#os clearing
+def clear():
+    if os.name in ('nt', 'dos'):
+        os.system("cls")
+    elif os.name in ('linux', 'osx', 'posix'):
+        os.system("clear")
+    else:
+        print("\n" * 120)
+
+
 
 running_game = True
 
@@ -48,8 +62,9 @@ e/exit: stop playing
     #Playing the game
     while playing_game:
         #playing game
+        clear()
         game_board.print_board()
-
+        
         #turn = game_board.get_current_turn()
 
         desired_move = player[turn_index].get_move()
