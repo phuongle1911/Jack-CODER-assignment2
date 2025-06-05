@@ -4,6 +4,7 @@ import os
 from board import Board  # Import the class from the other file
 from human_player import Human_player
 from player import Player
+from monte_carlo_player import Monte_carlo_player
 
 
 
@@ -15,7 +16,6 @@ def clear():
 
 def refresh_gamestate(board):
     clear()
-    print(f"{board.get_current_turn()}'s turn:")
     board.print_board()
 
 def choose_players(board):
@@ -23,7 +23,10 @@ def choose_players(board):
     #lambda for delaying object creation
     choices = {
         "1": lambda: Human_player(board),
-        "2": lambda: Player(board)
+        "2": lambda: Player(board),
+        "3": lambda: Monte_carlo_player(board,250),
+        "4": lambda: Monte_carlo_player(board,750),
+        "5": lambda: Monte_carlo_player(board,1500)
     }
     
     while len(player) < 2:
@@ -33,7 +36,7 @@ def choose_players(board):
     2. Randobot
     3. Normal AI
     4. Hard AI
-              
+    5. Impossible AI         
 e/exit: stop playing
 """)
         choice = input(f"Select Player {len(player) + 1}: ").strip().lower()
@@ -58,13 +61,11 @@ def play_game():
     turn_order = dict(zip(['X', 'O'], starting_turn)) 
     turn_index = turn_order[game_board.get_current_turn()]
     
-    player[0].set_peice('O')
-    player[1].set_peice('X')
-
     #Clear this info
     refresh_gamestate(game_board)
     while True:
-        
+        print(f"{game_board.get_current_turn()}'s turn: \n")
+
         desired_move = player[turn_index].get_move()
 
         if desired_move == "e":

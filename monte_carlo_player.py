@@ -13,7 +13,7 @@ import math
 
 class Monte_carlo_player(Player):
 
-    def __init__(self, board, interations):
+    def __init__(self, board, interations = 1000):
         super().__init__(board)
         self.interations = interations
         
@@ -29,8 +29,14 @@ class Monte_carlo_player(Player):
 
             node = node.get_best_child()
 
+            new_child = node.expand()
 
-        return 0; 
+            winner = new_child.rollout()
+
+            new_child.backpropagate(winner)
+
+        best_move = max(root.children, key=lambda child: child.visits).move
+        return best_move; 
 
 
 class MCTS_node():
@@ -49,7 +55,12 @@ class MCTS_node():
 
     def get_best_child(self):
         #if we are fully explored
-        if len(self.unexplored_options) != 0:
+        if len(self.unexplored_moves) != 0:
+            return self
+          
+
+        #if there are no children to explore
+        if not self.children:
             return self
         
         #search each of this nodes children
@@ -63,10 +74,13 @@ class MCTS_node():
     
 
     def expand(self):
-        
+        if not self.unexplored_moves:
+            return self  # No moves to expand, return
+
         #choose a random valid move to make, we will explore that move
-        move = random.choice(self.unexplored_moves)
-        self.unexplored_moves.pop(move)
+        index = random.randint(0, len(self.unexplored_moves)-1)
+        move = self.unexplored_moves[index]
+        self.unexplored_moves.pop(index)
 
         new_board = self.board.copy()
         new_board.play_move(move)
@@ -79,6 +93,7 @@ class MCTS_node():
         
         #play a random game from the made move, see who wins and return the result
         temp_board = self.board.copy()
+
         while True:
             #check if there is a winner to the game
             winner = temp_board.check_game_win()
@@ -92,8 +107,17 @@ class MCTS_node():
             #result can either be, None, draw or 'X' and 'O'
             self.visits += 1
 
-            if self.board.get_current_turn() == result:
-                self.wins += 1
+            #Get the nodes turn 'X' or 'O'
+            turn = self.board.get_current_turn()
+
+            if result in ['O', 'X']:
+
+                #if the turn (does not equal result add one)
+                #i do this as the current turn of the board, is flipped
+                #It could be fixed
+
+                if turn != result:
+                    self.wins += 1
             elif result == "draw":
                 self.wins += 0.5
 

@@ -69,6 +69,11 @@ class Board:
                     draw = False
                     continue        
                 
+                #check bot-right
+                if self.is_square_valid(row+3,col+3):
+                    if all(piece == self.board[row+i][col+i] for i in range(4)):
+                        return piece
+                    
                 #check right
                 if self.is_square_valid(row,col+3):
                     if all(piece == self.board[row][col+i] for i in range(4)):
@@ -84,7 +89,7 @@ class Board:
                     if all(piece == self.board[row-i][col] for i in range(4)):
                         return piece
 
-                #we only need to check Up up-right and right, this will cover all win positions
+                #we only need to check Up up-right right and bottom-right, this will cover all win positions
                 
         #if no winner is found
         if draw == True:
