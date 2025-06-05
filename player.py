@@ -12,7 +12,7 @@ class Player():
         return move
     
     def update_board(self, board):
-        self.board = board
+        self.board = board.copy()
 
 
     

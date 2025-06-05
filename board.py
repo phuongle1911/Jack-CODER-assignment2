@@ -6,6 +6,13 @@ class Board:
     def __init__(self):
         self.board = [["-" for square in range(self.width)] for square in range(self.height)]
 
+    def copy(self):
+        new_board = Board()
+        self.board[]
+        #array copy here
+        new_board.turn = self.turn 
+        return new_board
+
     def set_board(self, board_ar):
         self.board = board_ar
 
