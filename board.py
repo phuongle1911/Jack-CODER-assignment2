@@ -8,8 +8,8 @@ class Board:
 
     def copy(self):
         new_board = Board()
-        self.board[]
-        #array copy here
+        #2d array copy method
+        new_board.board = [row[:] for row in self.board]
         new_board.turn = self.turn 
         return new_board
 
