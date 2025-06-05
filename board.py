@@ -1,7 +1,7 @@
 class Board:
     width = 7
     height = 6
-    turn = "X"
+    turn = "O" #circle always goes first
 
     def __init__(self):
         self.board = [["-" for square in range(self.width)] for square in range(self.height)]
@@ -28,6 +28,14 @@ class Board:
         else:
             self.turn = "X"
 
+    def get_valid_moves(self):
+        valid_moves = []
+
+        for col in range(self.width):
+            if self.is_move_valid(col):
+                valid_moves.append(col)
+        return valid_moves
+    
     #def is_move_valid(self):
     def is_square_valid(self, row, collumn):
         return (collumn >= 0 and collumn < self.width) and ((row >= 0 and row < self.height))
@@ -76,7 +84,7 @@ class Board:
                     if all(piece == self.board[row-i][col] for i in range(4)):
                         return piece
 
-                #we only need to check Up up-right abd right, this will cover all win positions
+                #we only need to check Up up-right and right, this will cover all win positions
                 
         #if no winner is found
         if draw == True:

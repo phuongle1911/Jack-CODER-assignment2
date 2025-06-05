@@ -57,7 +57,10 @@ def play_game():
     random.shuffle(starting_turn)
     turn_order = dict(zip(['X', 'O'], starting_turn)) 
     turn_index = turn_order[game_board.get_current_turn()]
-        
+    
+    player[0].set_peice('O')
+    player[1].set_peice('X')
+
     #Clear this info
     refresh_gamestate(game_board)
     while True:

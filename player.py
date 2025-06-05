@@ -5,11 +5,13 @@ class Player():
     def __init__(self, board):
         self.board = board
 
+    def set_peice(self, peice):
+        self.peice = peice
+
+
     def get_move(self):
         
-        move = random.randint(0,6)
-
-        return move
+        return random.choice(self.board.get_valid_moves())
     
     def update_board(self, board):
         self.board = board.copy()
