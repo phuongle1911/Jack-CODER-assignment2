@@ -34,6 +34,24 @@ $\frac{w}{n} + c \sqrt{\frac{\ln N}{n}}$
 This is the Upper Confidence Bound for Trees (UCBT) formula, commonly used in other Monte Carlo tree search algorithms
 To change the difficulty of the AI we just change how many iterations the agent gets when exploring.
 
+The steps of the agent are as follows:
+#### Selection
+Find a node that is unexplored, using the UCBT formula it finds a node, then travels through that nodes best child and continues until a unexplored option is found
+
+#### Expansion
+We choose a random valid move to make from this nodes board, then return the node
+
+#### Rollout
+With this node we simulate a game, and return who the winner was ('X' 'O' or draw)
+
+#### Back propagation
+We then update all nodes visits by +1 and its win if it is the corresponding peice. Ie. a board that played a 'O' move gains a point if 'O' won the rollout
+Drawn boards also add 0.5 to the score, so the agent also accounts for that option
+
+Note: Because of how backpropagation works we account for the best move for X and O regardless if its the agents piece. We do this because we also expect the other player to make their best move. 
+
+
+
 There are many methods to improve this agent:
 - making it so that each rollout is not a randomly played game and the agent uses logic (ie connecting 4 from 3, playing towards the center etc)
 however I felt it was sufficient for this project
@@ -46,4 +64,4 @@ however I felt it was sufficient for this project
 - This means that Colorama is free and open source, as long as credits are kept for the original author
 
 ### Random + Math
-These are inbuilt python libaries, so they are under the availble for commercial and private use
+T-hese are inbuilt python libaries, so they are under the availble for commercial and private use
