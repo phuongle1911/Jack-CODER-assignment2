@@ -41,9 +41,9 @@ however I felt it was sufficient for this project
 ## Legal
 
 ### Colorama 
-BSD licence (Open-source)
-found here: https://pypi.org/project/colorama/
-This means that Colorama is free and open source, as long as credits are kept for the original author
+- BSD licence (Open-source)
+- found here: https://pypi.org/project/colorama/
+- This means that Colorama is free and open source, as long as credits are kept for the original author
 
 ### Random + Math
 These are inbuilt python libaries, so they are under the availble for commercial and private use
