@@ -7,6 +7,7 @@ This project requires the following Python packages:
 - `colorama` 
 - `random` 
 - `math` 
+
 Both random and math are inbuilt to python, colorama must be installed.
 If coloarama is not installed the game will not run
 Please run: `pip install colorama`
@@ -27,9 +28,9 @@ The monte carlo agent uses a monte carlo tree search to find which moves to expl
 While it does this it makes sure that winning moves are explored much more, while unexplored moves gain at least
 some exploration.
 The formula for deciding which node to explore is as follows:
-$$
-\frac{\text{node.wins}}{\text{node.visits}} + 1.41 \times \sqrt{\frac{\log(\text{self.visits})}{\text{node.visits}}}
-$$
+
+$\frac{w}{n} + c \sqrt{\frac{\ln N}{n}}$
+
 This is the Upper Confidence Bound for Trees (UCBT) formula, commonly used in other Monte Carlo tree search algorithms
 To change the difficulty of the AI we just change how many iterations the agent gets when exploring.
 
