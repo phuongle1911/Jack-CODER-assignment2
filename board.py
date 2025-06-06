@@ -1,6 +1,11 @@
-from colorama import init, Fore
+try:
+    from colorama import Fore, init
+    init(autoreset=True)
+except ImportError:
+    print("Colorama is not installed.")
+    print("Please install it by running: pip install colorama")
+    exit(1)
 
-init(autoreset=True)
 
 class Board:
     width = 7
@@ -109,20 +114,18 @@ class Board:
     
 
     def print_board(self):
-        for row in self.board:
+        for row_index in range(self.height):
             print_str = ""
-            for col in row:
-                
-                
-                if (col,row) in self.winning_line:
-                    print_str += Fore.GREEN + "W "
-                else: 
-                    if col == 'X':
-                        print_str += Fore.RED + "X "
-                    elif col == 'O':
-                        print_str += Fore.YELLOW + "O "
-                    else:
-                        print_str += Fore.WHITE + "- "
+            for col_index in range(self.width):
+                cell = self.board[row_index][col_index] + " "
+                if self.winning_line != [] and (row_index, col_index) in self.winning_line:
+                    print_str += Fore.GREEN + cell + " "
+                elif cell == 'X ':
+                    print_str += Fore.RED + cell
+                elif cell == 'O ':
+                    print_str += Fore.YELLOW + cell
+                else:
+                    print_str += Fore.WHITE + cell
 
                 
             print(print_str)

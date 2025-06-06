@@ -2,14 +2,6 @@ from player import Player
 import random
 import math
 
-#this method uses a monte carlo tree search to figure out which move to do next,
-#increasing or decreasing the iterations changes how long the machine gets to check options.
-#there are many ways to improve this design, ill just stick with a basic version to begin with
-
-# the mcts method ill be using does 3 steps:
-#
-
-#alot of these methods have been repurposed from a previous games + AI course I completed in uni,
 
 class Monte_carlo_player(Player):
 
@@ -114,7 +106,7 @@ class MCTS_node():
 
                 #if the turn (does not equal result add one)
                 #i do this as the current turn of the board, is flipped
-                #It could be fixed
+                #It could be fixed, but oh well ¯\_(ツ)_/¯
 
                 if turn != result:
                     self.wins += 1
