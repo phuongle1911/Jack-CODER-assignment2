@@ -1,10 +1,17 @@
+from colorama import init, Fore
+
+init(autoreset=True)
+
 class Board:
     width = 7
     height = 6
     turn = "O" #circle always goes first
 
+
     def __init__(self):
         self.board = [["-" for square in range(self.width)] for square in range(self.height)]
+        self.winning_line =[]
+
 
     def copy(self):
         new_board = Board()
@@ -72,21 +79,25 @@ class Board:
                 #check bot-right
                 if self.is_square_valid(row+3,col+3):
                     if all(piece == self.board[row+i][col+i] for i in range(4)):
+                        self.winning_line = [(row+i, col+i) for i in range(4)]
                         return piece
                     
                 #check right
                 if self.is_square_valid(row,col+3):
                     if all(piece == self.board[row][col+i] for i in range(4)):
+                        self.winning_line = [(row, col+i) for i in range(4)]
                         return piece
                 
                 #check up-right
                 if self.is_square_valid(row-3,col+3):
                     if all(piece == self.board[row-i][col+i] for i in range(4)):
+                        self.winning_line = [(row-i, col+i) for i in range(4)]
                         return piece
 
                 #check up
                 if self.is_square_valid(row-3,col):
                     if all(piece == self.board[row-i][col] for i in range(4)):
+                        self.winning_line = [(row-i, col) for i in range(4)]
                         return piece
 
                 #we only need to check Up up-right right and bottom-right, this will cover all win positions
@@ -99,9 +110,19 @@ class Board:
 
     def print_board(self):
         for row in self.board:
-            print(" ", end = "")
+            print_str = ""
             for col in row:
-                print(col,end=" ")
-            print()
-        
-        print()
+                
+                
+                if (col,row) in self.winning_line:
+                    print_str += Fore.GREEN + "W "
+                else: 
+                    if col == 'X':
+                        print_str += Fore.RED + "X "
+                    elif col == 'O':
+                        print_str += Fore.YELLOW + "O "
+                    else:
+                        print_str += Fore.WHITE + "- "
+
+                
+            print(print_str)
