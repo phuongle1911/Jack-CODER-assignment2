@@ -119,7 +119,7 @@ class Board:
             for col_index in range(self.width):
                 cell = self.board[row_index][col_index] + " "
                 if self.winning_line != [] and (row_index, col_index) in self.winning_line:
-                    print_str += Fore.GREEN + cell + " "
+                    print_str += Fore.GREEN + cell
                 elif cell == 'X ':
                     print_str += Fore.RED + cell
                 elif cell == 'O ':
