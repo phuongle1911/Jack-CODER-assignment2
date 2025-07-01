@@ -11,6 +11,24 @@ def createPlayer(board):
     print("Creating new player....")
     return Player(board)
 
+def test_player_set_board(createBoard):
+    player = createPlayer(createBoard)
+
+    createBoard.set_board([ ["-","-","-","-","-","-","-"],
+                            ["-","-","-","-","-","-","-"],
+                            ["-","-","-","-","-","-","-"],
+                            ["-","-","-","-","-","-","-"],
+                            ["-","X","-","-","-","-","-"],
+                            ["-","O","-","-","-","-","-"]])
+    player.update_board(createBoard)
+    
+    assert player.board.board == [  ["-","-","-","-","-","-","-"],
+                                    ["-","-","-","-","-","-","-"],
+                                    ["-","-","-","-","-","-","-"],
+                                    ["-","-","-","-","-","-","-"],
+                                    ["-","X","-","-","-","-","-"],
+                                    ["-","O","-","-","-","-","-"]]
+
 def test_player_plays_valid_moves(createBoard):
     player = createPlayer(createBoard)
 
