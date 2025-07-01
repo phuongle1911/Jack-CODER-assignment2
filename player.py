@@ -10,6 +10,8 @@ class Player():
 
 
     def get_move(self):
+        if self.board.get_valid_moves() == []:
+            return -1
         
         return random.choice(self.board.get_valid_moves())
     
