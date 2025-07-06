@@ -15,6 +15,10 @@ class Monte_carlo_player(Player):
         
         root = MCTS_node(self.board.copy())
 
+        if root.board.get_valid_moves() == []:
+            return -1
+
+
         for i in range(self.interations):
             #start at the root of the tree
             node = root
