@@ -2,10 +2,13 @@
 This is a CLI game based on Tic-tac-toe game, the game that used X's and O's. 
 
 This game is built with following rules:
-- The player to take first turn is randomly chosen.
+- The first turn is randomly chosen between 2 players. 
 - Game allows 2 players to take turn to place their symbol into a displayed board, one player is assigned with X and the other is assigned with O. 
+- The player chooses a column (1–7) to place their symbol.  
+- Symbols stack from the bottom of the column upward, filling the lowest available space.  
 - The first player who get four of their symbols in a row (either horizontally, vertically, or diagonally) wins.
 - If all spaces in the board (displayed with '-') are filled and no player has four in a row, the game is a draw.
+- Enter "e" to exit the game anytime. If you would like to play again, enter "y", otherwise enter "n".
 
 ## Features
 The game has following features:
@@ -49,9 +52,9 @@ Note: Because of how backpropagation works, the best move for X and O are accoun
 
 
 
-Installation steps are referred to INSTALLATION_README.md file
+*Installation steps are referred to INSTALLATION_README.md file*
 
-Requirements for this application are referred to REQUIREMENTS_README.md
+*Requirements for this application are referred to REQUIREMENTS_README.md*
 
 
 
