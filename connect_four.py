@@ -29,6 +29,7 @@ def choose_players(board):
         "5": lambda: Monte_carlo_player(board,1500)
     }
     
+    #repeat until both players have been successfully selected
     while len(player) < 2:
 
         print(f"""Select Player {len(player) + 1}:
@@ -92,7 +93,8 @@ def play_game():
     
     return input("Play again? (y/n): ").strip().lower().startswith("y")
 
-    
+
+#Actually run the game, until play_game is stoped via exiting
 while play_game():
     continue
 

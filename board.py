@@ -29,7 +29,7 @@ class Board:
         new_board.turn = self.turn 
         return new_board
     
-    # set the board
+    # set the board to a new 2d array
     def set_board(self, board_ar):
         self.board = board_ar
 
@@ -52,7 +52,7 @@ class Board:
     def get_valid_moves(self):
         valid_moves = [] # move to be reset to be empty list
 
-        # capture the all empty cell at the bottom of the board and append their column index to valid_moves list
+        # capture the all empty cell at the top of the board and append their column index to valid_moves list
         for col in range(self.width):
             if self.is_move_valid(col):
                 valid_moves.append(col)
@@ -71,15 +71,16 @@ class Board:
     def is_move_valid(self, collumn):
         if not self.is_square_valid(0,collumn): # if the move not within range of (0,board width), is_square_valid function return False, and is_move_valid return False
             return False
-         # check if the cell in bottom of the board in entered column index is empty. If not, function return False. 
+         # check if the cell in top of the board in entered column index is empty. If not, function return False. 
         if self.board[0][collumn] != "-":
             return False
         
         return True      
 
     # function to place symbol on the board based on move input
+    # You may only play a given move if the move is valid, so no need to check if the move is valid in here
     def play_move(self, collumn):
-        for row in reversed(range(self.height)): # loop through row index on the board
+        for row in reversed(range(self.height)): # loop through row index on the board starting at the bottom of the given collumn
             if self.board[row][collumn] == "-": # check if the requested place on board is empty
                 self.board[row][collumn] = self.turn # place current player's symbol in that place if empty
 
@@ -125,9 +126,9 @@ class Board:
                         self.winning_line = [(row-i, col) for i in range(4)]
                         return piece
 
-                #we only need to check Up up-right right and bottom-right, this will cover all win positions
+                #we only need to check Up up-right right and bottom-right, this will cover all win positions, as the othe directions overlap with these
                 
-        #if no winner is found, return draw
+        #if no winner is found and draw is still true, then there are no more free squares. return draw
         if draw == True:
             return "draw"
         return
@@ -138,7 +139,7 @@ class Board:
         for row_index in range(self.height):
             print_str = ""
             for col_index in range(self.width):
-                cell = self.board[row_index][col_index] + " " # a cell on the board
+                cell = self.board[row_index][col_index] + " " # a cell on the board, space is used to give a gap between cells
 
                 # Color the winning lines in Green
                 if self.winning_line != [] and (row_index, col_index) in self.winning_line:
