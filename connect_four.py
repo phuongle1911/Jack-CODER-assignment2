@@ -8,12 +8,12 @@ from monte_carlo_player import Monte_carlo_player
 
 
 
-#os clearing
+# clear the terminal to make the terminal looks more tidy
 def clear():
     #clear the terminal based on os used
     os.system("cls" if os.name in ('nt', 'dos') else "clear")
 
-
+# referesh game terminal and print the updated board again
 def refresh_gamestate(board):
     clear()
     board.print_board()
