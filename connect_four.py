@@ -122,7 +122,7 @@ def play_game():
     return input("Play again? (y/n): ").strip().lower().startswith("y")
 
 
-#Actually run the game, until play_game is stoped via exiting
+#Actually run the game, until play_game is stopped via exiting
 while play_game():
     continue
 
