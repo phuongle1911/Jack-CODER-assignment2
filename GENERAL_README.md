@@ -21,7 +21,15 @@ The game has following features:
 
 Detailed information about Monte Carlo Agent is as following:
 
-### Monte Carlo Agent
+# Monte Carlo Agent
+There are three available difficulties of the monte carlo agent, the only change netween them is the amount of times the AI agent gets to think:
+- Normal AI: 250
+- Hard AI: 750
+- Impossible AI: 1500
+
+For the best experience vrsing this agent unhindered, Impossible AI is the best to go with!
+
+## Explanation
 The monte carlo agent uses a monte carlo tree search to find the best moves. The concept is that the agent plays the game to the very end by selecting moves randomly. 
 
 While it does this, it makes sure that winning moves are further explored, while unexplored moves gain at least
@@ -31,30 +39,115 @@ The formula for deciding which node to explore is as follows:
 
 $\frac{w}{n} + c \sqrt{\frac{\ln N}{n}}$
 
-This is the Upper Confidence Bound for Trees (UCBT) formula, commonly used in other Monte Carlo tree search algorithms
-To change the difficulty of the AI we just change how many iterations the agent gets when exploring.
+This is the Upper Confidence Bound for Trees (UCBT) formula, commonly used in other Monte Carlo tree search algorithms.
 
-This agent follow below steps:
-#### Selection
-Find a node that is unexplored, using the UCBT formula it finds a node, then travels through that nodes's best child and continues until a unexplored option is found
+## MCST nodes
 
-#### Expansion
-A random valid move is chosen to make from this nodes board, then return the node
+This is what the search tree is made from. Think of each node as a board state. Each of these board states have a amount of valid moves they can make. Eg this could be a nodes current board state
 
-#### Rollout
-With the chosen node, a game is simulated with the node's scenario, and return who the winner was ('X' 'O' or draw)
+```
+- - - - 
+- - - -
+- - X -
+```
+We would be able to make a move at collumn: 1 2 3 and 4 so how will we find which move to make next?
 
-#### Back propagation
-All nodes visits are then updated by +1 and its win if it is the corresponding piece. Ie. a board that played a 'O' move gains a point if 'O' won the rollout
-Drawn boards also add 0.5 to the score, so the agent also accounts for that option
+We figure this out by creating child nodes to this board, each of these mimicking what would happen if the corresponding move was played
 
-Note: Because of how backpropagation works, the best move for X and O are accounted for regardless of which one is the agent's piece. The reason is that other player is expected to make their best move as well. 
+```
+Child 1     Child 2     Child 3     Child 4
+- - - -     - - - -     - - - -     - - - -  
+- - - -     - - - -     - - O -     - - - - 
+O - X -     - O X -     - - X -     - - X O      
+```
+
+Each of these nodes would be valid children of the first node
+
+With this new node, we give it a few more bits of information:
+- Which move was just made to get to this point 
+- The turn that was just played ('O' in this case)
+- The parent node, so the node that this node came from
+
+Other information the node contains are:
+- The amount of wins it has seen
+- The amount of visits/ checks the program has done here
+
+As we keep expanding each of these nodes (by giving them more children) we start to see the nodes make a tree like structor. Giving the algorithm its name.
+
+## Logic on the turn
+
+First the agent makes a starting node using the oringinal board that they will be playing to.
+
+> Most notably this node does not have a parent thus making it the 'root' 
+
+## Selection
+When selecting we must find a node that is unexplored and has the best chance of winning, or leading to a good outcome.
+
+We do this by using the UCBT formula ($\frac{w}{n} + c \sqrt{\frac{\ln N}{n}}$) on a node, checking which child has the best result on the formula. Wins and visits are used to balence it out since nodes with medium visits but high wins should be explored just as throuroughly.
+
+After a best child has been chosen, we go to that node and repeat until we find a node with a missing child (a move that has yet to be mimicked) This node is selected to be expanded.
+
+## Expansion
+With the given best child, we create a child to that board using a move that has yet to have a child based on
+
+```
+      Current Node
+        - - - -      
+        - - O -     
+        - - X - 
 
 
+Old child   Created Child 
+- - X -        - - - -     
+- - O -        - - O -     
+- - X -        - - X X     
+```
 
+> Eg. placing a new move on column 3 would not be allowed, since there is already a child with that move used attached to this node
+
+## Rollout
+We then simulate a full match of a game starting from the new nodes board.
+using random moves for both players. This continues until there is a draw or a win
+```
+Created Child         Rollout results 
+    - - - -              O - O X 
+    - - O -     ->       X - O O        -> X wins
+    - - X X              X X X X 
+```
+With the simulated game we return who won: 'X' 'O' or draw
+
+## Back propagation
+With the simulated result, we have to tell each node wether one of their children won, lost or drew.
+
+So we end up going back through each node, until we reach the root node (the board we are acutally looking for the best move for). Adding points for a win and adding a visit to the node.
+
+
+```
+     Root
+   - - - -      
+   - - - -  - Root, add nothing   
+   - - X - 
+      |
+    Child
+   - - - -      
+   - - O -  + 0 wins (X won) + 1 visit!       
+   - - X - 
+      |
+    Child
+   - - - -   
+   - - O -  + 1 wins (X won) + 1 visit!    
+   - - X X 
+```
+
+As we go through each node we check what piece the nodes last move made was ('X' or 'O'). this is because we will end up finding the best move from **each game state**. So if X won the board that X just played to would get a point but if O just played to the board they dont get anything.
+
+We do this because we need to assume that every player will make the best move for them, we shouldnt just assume the enemy player is going to make the best move to let us win!
+
+> On a draw 0.5 points are instead rewarded to both players. To insentivise draws if no wins are availble
+
+
+```
 *Installation steps are referred to INSTALLATION_README.md file*
 
 *Requirements for this application are referred to REQUIREMENTS_README.md*
-
-
-
+```

@@ -59,7 +59,7 @@ python connect_four.py
 
 ### Requirements
 - Python 3 or higher
-- No third party libraries required 
+- Coloroma 0.4.6 (+)
 
 
 
