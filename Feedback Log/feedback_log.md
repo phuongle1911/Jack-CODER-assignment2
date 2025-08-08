@@ -15,3 +15,8 @@
 #### INSTALLATION_README.md
 - Fixed the fact that we had "No third party libraries required' despite the fact we use colorama
 
+## Cat Brandt, 08/08/2025
+
+#### GENERAL_README.md 
+- Added clarity to difficulty levels (ie 250 means 250 simulations of the agent)
+- Added ethics to the Ai section (Credit to the original algorithm inspirations)

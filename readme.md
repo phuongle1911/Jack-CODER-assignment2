@@ -21,11 +21,53 @@ The game has following features:
 
 Detailed information about Monte Carlo Agent is as following:
 
+# How to play
+
+> Please follow the installation steps in INSTALLATION_README.md before running
+
+Launch the game from connect_four.py
+
+```
+connect_four.py
+```
+
+you will then choice between which agent you would like to create a game with:
+```
+    1. Human (same machine)
+    2. Randobot
+    3. Normal AI
+    4. Hard AI
+    5. Impossible AI  
+```
+
+You get to choose which two player agents will be vrsing each other. This means any combination is possible, it does just have to be human v machine. You can make the AI's vrs each other 
+
+> the order of players does not determine who goes first. This is randomized
+
+## Playing a move
+
+```
+- - - - - - - 
+- - - - - - - 
+- - - - - - - 
+- - - - - - - 
+- - - - - - - 
+- - - - - - - 
+O's turn:
+
+Enter a move:
+```
+
+Enter a number where you want to play a move to, 1 if the furthest left and 7 is thr furthest right. If the move you made was invalid, you play again until a valid move is made.
+
+> 'e' or 'Exit' can be used at any time to exit the program
+
+
 # Monte Carlo Agent
 There are three available difficulties of the monte carlo agent, the only change netween them is the amount of times the AI agent gets to think:
-- Normal AI: 250
-- Hard AI: 750
-- Impossible AI: 1500
+- Normal AI: 250 simulations
+- Hard AI: 750 simulations
+- Impossible AI: 1500 simulations
 
 For the best experience vrsing this agent unhindered, Impossible AI is the best to go with!
 
@@ -145,9 +187,24 @@ We do this because we need to assume that every player will make the best move f
 
 > On a draw 0.5 points are instead rewarded to both players. To insentivise draws if no wins are availble
 
+## Decide the move to make
 
-```
+Finally we decide the move to make, based on which of the roots child nodes were explored the most.
+
+## AI Ethics
+### Transparity
+
+**We acknowledge and credit these contributions:**
+- Monte Carlo Tree Search is based on work done by Rémi Coulom in 2006, where he explained the use of MCTS in game-theroy (and where he coined the name). 
+- UBCT (Upper confidence bounds applied to trees) is also based on work by L. Kocsis and Cs. Szepesvári and further adaptated by S. Gelly in their work on the program MoGo (2008) that would play 9x9 Go
+
+### Fairness and Accessability
+This project is open-source, requires no paid softwares, and can be run in terminal. With thorough documentation on how the Monte Carlo Agent works. We do this to encourage people to learn some game theory and how some of these AI agents work.
+
+
+
+# Extra Information
+
 *Installation steps are referred to INSTALLATION_README.md file*
 
 *Requirements for this application are referred to REQUIREMENTS_README.md*
-```
