@@ -46,8 +46,19 @@ venv\Scripts\activate
 ```
 
 ---
+### Install Dependencies
 
+To install the dependencies, run:
+```bash
+pip install -r requirements.txt
+```
+---
 ### Run the Game
+
+Navigate to project folder
+```bash
+cd CODER-ASSIGNMENT2
+```
 
 To start the game, run:
 
@@ -55,11 +66,6 @@ To start the game, run:
 python connect_four.py
 ```
 
----
-
-### Requirements
-- Python 3 or higher
-- Coloroma 0.4.6 (+)
 
 
 

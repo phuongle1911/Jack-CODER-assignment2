@@ -25,12 +25,16 @@ python connect_four.py
 
 ## Dependencies
 
-### Colorama
+### Colorama 0.4.6
 
 Install with
 
 ```
 pip install colorama
+```
+or 
+```bash
+pip install -r requirements.txt
 ```
 
 #### Purpose
